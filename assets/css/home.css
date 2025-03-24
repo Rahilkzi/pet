@@ -1,0 +1,437 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+
+/* Hero section */
+.hero {
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #8B0000;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hero h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.hero button {
+    padding: 10px 20px;
+    background-color: #ff6347;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+
+
+
+/* Featured Pets Section */
+.featured-pets {
+    padding: 40px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.featured-pets h2 {
+    font-size: 28px;
+    color: #b40000;
+    margin-bottom: 20px;
+}
+
+.featured-pets .pets-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.featured-pets .pet-card {
+    background-color: #fff8f0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.featured-pets .pet-card img {
+    width: 100%;
+    border-radius: 8px;
+    height: auto;
+}
+
+.featured-pets .pet-card h3 {
+    font-size: 20px;
+    color: #b40000;
+    margin: 10px 0 5px;
+}
+
+.featured-pets .pet-card p {
+    font-size: 16px;
+    color: #555;
+    margin: 5px 0 15px;
+}
+
+.featured-pets .pet-card a {
+    display: inline-block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #ff6b00;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.featured-pets .pet-card a:hover {
+    background-color: #e55e00;
+}
+
+/* Pet Care Products Section */
+.pet-care-products {
+    padding: 40px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.pet-care-products h2 {
+    font-size: 28px;
+    color: #b40000;
+    margin-bottom: 20px;
+}
+
+.pet-care-products .products-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.pet-care-products .product-card {
+    background-color: #fff8f0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.pet-care-products .product-card img {
+    width: 100%;
+    border-radius: 8px;
+    height: auto;
+}
+
+.pet-care-products .product-card h3 {
+    font-size: 20px;
+    color: #b40000;
+    margin: 10px 0 5px;
+}
+
+.pet-care-products .product-card p {
+    font-size: 16px;
+    color: #555;
+    margin: 5px 0 15px;
+}
+
+.pet-care-products .product-card a {
+    display: inline-block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #ff6b00;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.pet-care-products .product-card a:hover {
+    background-color: #e55e00;
+}
+
+/* Success Stories Section */
+.success-stories {
+    padding: 40px 20px;
+    background-color: #fff5e1;
+    text-align: center;
+}
+
+.success-stories h2 {
+    font-size: 28px;
+    color: #b40000;
+    margin-bottom: 20px;
+}
+
+.success-stories .stories-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.success-stories .story-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.success-stories .story-card img {
+    width: 100%;
+    border-radius: 8px;
+    height: auto;
+}
+
+.success-stories .story-card h3 {
+    font-size: 20px;
+    color: #b40000;
+    margin: 10px 0 5px;
+}
+
+.success-stories .story-card p {
+    font-size: 16px;
+    color: #555;
+    margin: 5px 0 15px;
+}
+
+.read-more {
+    margin-top: 20px;
+}
+
+.read-more-button {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #ff6b00;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.read-more-button:hover {
+    background-color: #e55e00;
+}
+
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.banner {
+  background: url('image.png') no-repeat center/cover;
+  color: #333;
+  padding: 50px 20px;
+}
+
+.banner h1 {
+  font-size: 3rem;
+  color: #b70000;
+  margin-bottom: 10px;
+}
+
+.banner p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn.adopt {
+  background-color: #ff5c5c;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.btn.adopt:hover {
+  background-color: #e64545;
+}
+
+.btn.pet-care {
+  background-color: #ffa000;
+  color: #fff;
+}
+
+.btn.pet-care:hover {
+  background-color: #cc7a00;
+}
+
+
+
+/* Call to Action */
+.cta {
+    background-color: #f9f9f9;
+    padding: 40px;
+    text-align: center;
+ }
+ 
+ .cta-content h2 {
+    font-size: 28px;
+    color: #8B0000;
+    margin-bottom: 20px;
+ }
+ 
+ .cta-content p {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 30px;
+ }
+ 
+ .cta-content button {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    padding: 13px 21px;
+    background-color: #fc5335;
+    color: #fff;
+    border: 2px solid #fc5335;
+    border-radius: 26px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+.cta-content button:hover {
+    border-width: 2px;
+    border: 2px solid #fc5335;
+    background-color: #ffffffce;
+    color: #fc5335;
+ }
+
+ img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+.hero {
+    position: relative; /* To allow absolute positioning inside this container */
+    width: 100%;
+    height: 400px; /* Adjust height as per your image size */
+    overflow: hidden; /* Hide anything outside of the hero container */
+}
+
+.hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the area without distorting it */
+}
+
+.hero-content {
+    position: absolute; /* Position content over the image */
+    top: 50%; /* Center the content vertically */
+    left: 50%; /* Center the content horizontally */
+    transform: translate(-50%, -50%); /* Adjust for exact centering */
+    color: rgb(96, 27, 27); /* White text color for visibility */
+    text-align: center; /* Center align the text */
+    z-index: 2; /* Ensure the text stays above the image */
+}
+
+.hero h1 {
+    font-size: 3rem; /* Adjust the font size */
+    margin: 0.5rem 0; /* Adjust the spacing */
+}
+
+.hero p {
+    font-size: 1.5rem; /* Adjust the font size */
+    margin: 0.5rem 0;
+}
+
+.hero .buttons {
+    margin-top: 1rem;
+}
+
+.hero .btn {
+    background-color: #ff6347; /* Adjust button color */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 0.5rem;
+}
+
+.hero .btn:hover {
+    background-color: #e5533b; /* Darker shade for hover effect */
+}
+
+
+
+
+
+
+/* Specific styles for pet and product images */
+.pets-container img, .products-container img {
+    width: 150px; /* Adjust for uniformity */
+    height: 150px;
+    object-fit: cover; /* Ensures images are cropped correctly */
+    border-radius: 10px; /* Optional for rounded edges */
+}
+
+
+/* Default styles for desktop */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* For screens larger than 768px (typically tablets and larger screens) */
+@media (min-width: 768px) {
+    body {
+        background-color: #f0f0f0;
+    }
+
+    .container {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
+/* For screens smaller than 768px (typically mobile screens) */
+@media (max-width: 767px) {
+    body {
+        background-color: #fff;
+    }
+
+    .container {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .menu {
+        display: block;
+    }
+}

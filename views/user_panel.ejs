@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" type="text/css" href="/css/userpanel.css">
+    <title>User Profile</title>
+    <script>
+        // Function to show the corresponding section based on sidebar click
+        function showSection(sectionId) {
+            // Hide all sections
+            var sections = document.querySelectorAll('.section');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+
+            // Show the clicked section
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        function editProfile() {
+            document.getElementById('profile-info').style.display = 'none';
+            document.getElementById('edit-profile-form').style.display = 'block';
+        }
+
+        function saveProfile() {
+            var newName = document.getElementById('edit-name').value;
+            var newEmail = document.getElementById('edit-email').value;
+            
+            document.getElementById('user-name').innerText = newName;
+            document.getElementById('user-email').innerText = newEmail;
+            
+            document.getElementById('profile-info').style.display = 'block';
+            document.getElementById('edit-profile-form').style.display = 'none';
+        }
+
+        function viewApplication() {
+            document.getElementById('application-modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('application-modal').style.display = 'none';
+        }
+
+        function adoptNow() {
+            alert("Proceeding with adoption process...");
+        }
+
+        function toggleProfile() {
+            var profileInfo = document.getElementById('profile-info');
+            if (profileInfo.style.display === 'none') {
+                profileInfo.style.display = 'block';
+            } else {
+                profileInfo.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>User Profile</h2>
+        <ul>
+            <li><a href="javascript:void(0);" onclick="showSection('dashboard')">Dashboard</a></li>
+            <li><a href="javascript:void(0);" onclick="showSection('profile')">Profile</a></li>
+            <li><a href="javascript:void(0);" onclick="showSection('applications')">Adoption Applications</a></li>
+            <li><a href="javascript:void(0);" onclick="showSection('favorites')">Favorite Pets</a></li>
+            <li><a href="javascript:void(0);" onclick="showSection('appointments')">Appointments</a></li>
+            <li><a href="javascript:void(0);" onclick="showSection('notifications')">Notifications</a></li>
+            <li><a href="javascript:void(0);" onclick="showSection('resources')">Pet Care Resources</a></li>
+            <li><a href="javascript:void(0);" onclick="showSection('settings')">Settings</a></li>
+            <li><a href="javascript:void(0);" onclick="showSection('logout')">Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section" style="display:none;">
+            <h2>Dashboard</h2>
+            <p>Welcome to your dashboard!</p>
+        </section>
+        
+
+      
+    <!-- User Profile Section -->
+    <section id="profile" class="section" style="display:none;">
+        <div id="profile-info">
+            <h2>Welcome, <span id="user-name">User</span></h2>
+            <img id="profile-picture" src="default-profile.jpg" alt="Profile Picture" class="profile-image">
+            <p>Email: <span id="user-email">user@example.com</span></p>
+            <p>Age: <span id="user-age">25</span></p>
+            <p>Address: <span id="user-address">123 Main St, City, Country</span></p>
+            <p>Phone: <span id="user-phone">+1234567890</span></p>
+            <p>Member since: January 2024</p>
+            <button class="edit-btn" onclick="editProfile()">Edit Profile</button>
+        </div>
+ 
+    
+
+        <!-- Edit Profile Form -->
+        <div id="edit-profile-form" class="edit-form" style="display: none;">
+            <h2>Edit Profile</h2>
+
+            <!-- Profile Picture Upload -->
+            <label for="edit-picture">Profile Picture:</label>
+            <input type="file" id="edit-picture" accept="image/*" onchange="previewImage(event)">
+            <br>
+            <img id="preview-image" src="default-profile.jpg" alt="Preview" class="preview-image">
+
+            <label for="edit-name">Name:</label>
+            <input type="text" id="edit-name" value="User">
+
+            <label for="edit-email">Email:</label>
+            <input type="email" id="edit-email" value="user@example.com">
+
+            <label for="edit-age">Age:</label>
+            <input type="number" id="edit-age" value="25">
+
+            <label for="edit-address">Address:</label>
+            <input type="text" id="edit-address" value="123 Main St, City, Country">
+
+            <label for="edit-phone">Phone:</label>
+            <input type="text" id="edit-phone" value="+1234567890">
+
+            <button class="save-btn" onclick="saveProfile()">Save</button>
+        </div>
+    </section>
+
+<script>
+    function editProfile() {
+        document.getElementById('profile-info').style.display = 'none';
+        document.getElementById('edit-profile-form').style.display = 'block';
+    }
+
+    function saveProfile() {
+        var newName = document.getElementById('edit-name').value;
+        var newEmail = document.getElementById('edit-email').value;
+        var newAge = document.getElementById('edit-age').value;
+        var newAddress = document.getElementById('edit-address').value;
+        var newPhone = document.getElementById('edit-phone').value;
+        
+        document.getElementById('user-name').innerText = newName;
+        document.getElementById('user-email').innerText = newEmail;
+        document.getElementById('user-age').innerText = newAge;
+        document.getElementById('user-address').innerText = newAddress;
+        document.getElementById('user-phone').innerText = newPhone;
+
+        // If a new image is uploaded, update the profile picture
+        var previewImage = document.getElementById('preview-image').src;
+        if (previewImage !== "default-profile.jpg") {
+            document.getElementById('profile-picture').src = previewImage;
+        }
+
+        document.getElementById('profile-info').style.display = 'block';
+        document.getElementById('edit-profile-form').style.display = 'none';
+    }
+
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('preview-image');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+
+
+        <!-- Adoption Applications Section -->
+        <section id="applications" class="section" style="display:none;">
+            <h2>Adoption Applications</h2>
+            <h3>Current Applications</h3>
+            <table>
+                <tr>
+                    <th>Pet Name</th>
+                    <th>Status</th>
+                    <th>Submission Date</th>
+                    <th>Action</th>
+                </tr>
+                <tr>
+                    <td>Buddy (Dog)</td>
+                    <td>Pending</td>
+                    <td>Feb 15, 2025</td>
+                    <td><button onclick="viewApplication()">View</button></td>
+                </tr>
+            </table>
+            <h3>Past Applications</h3>
+            <p>No past adoptions.</p>
+        </section>
+
+        <!-- Favorite Pets Section -->
+        <section id="favorites" class="section" style="display:none;">
+            <h2>Favorite Pets</h2>
+            <div class="pet-card">
+                <img src="pet.jpg" alt="Pet Image">
+                <p>Fluffy (Cat)</p>
+                <button onclick="adoptNow()">Adopt Now</button>
+            </div>
+        </section>
+
+        <!-- Appointments Section -->
+        <section id="appointments" class="section" style="display:none;">
+            <h2>Appointments</h2>
+            <p>No upcoming meetings.</p>
+        </section>
+
+        <!-- Notifications Section -->
+        <section id="notifications" class="section" style="display:none;">
+            <h2>Notifications</h2>
+            <p>You have no new notifications.</p>
+        </section>
+
+        <!-- Pet Care Resources Section -->
+        <section id="resources" class="section" style="display:none;">
+            <h2>Pet Care Resources</h2>
+            <ul>
+                <li><a href="https://www.akc.org/expert-advice/lifestyle/how-to-care-for-your-dog/" target="_blank">How to take care of a dog</a></li>
+                <li><a href="https://www.hillspet.com/cat-care/training" target="_blank">Cat training tips</a></li>
+            </ul>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="section" style="display:none;">
+            <h2>Settings</h2>
+            <p>Manage your account settings here.</p>
+        </section>
+
+        <!-- Logout Section -->
+        <section id="logout" class="section" style="display:none;">
+            <h2>Logout</h2>
+            <p>Are you sure you want to log out?</p>
+            <button>Logout</button>
+        </section>
+    </div>
+
+    <!-- Application Details Modal -->
+    <div id="application-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Application Details</h3>
+            <p><strong>Pet Name:</strong> Buddy (Dog)</p>
+            <p><strong>Status:</strong> Pending</p>
+            <p><strong>Submission Date:</strong> Feb 15, 2025</p>
+            <p><strong>Notes:</strong> Waiting for approval.</p>
+        </div>
+    </div>
+
+   
+</body>
+</html>

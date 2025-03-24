@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pet Listings</title>
+    <link rel="stylesheet" href="/css/dashboard.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f8f9fa;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      .search-bar {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+        text-align: center;
+      }
+
+      th,
+      td {
+        padding: 10px;
+      }
+
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+      }
+
+      .add-pet-btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #28a745;
+        color: white;
+        text-align: center;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+
+      .pet-form-container {
+        display: none;
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f1f1f1;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>🐾 Pet Listings</h1>
+
+      <!-- Search Bar -->
+      <input
+        type="text"
+        id="searchBar"
+        class="search-bar"
+        placeholder="Search pets by name, category, or breed..."
+      />
+
+      <!-- Pet Listings Table -->
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Breed</th>
+            <th>Age</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="petTableBody">
+          <% if (pets.length > 0) { %> <% pets.forEach(pet => { %>
+          <tr data-id="<%= pet.id %>">
+            <td class="pet-name"><%= pet.name %></td>
+            <td class="pet-category"><%= pet.category %></td>
+            <td class="pet-breed"><%= pet.breed %></td>
+            <td class="pet-age"><%= pet.age %> years</td>
+            <td class="pet-description"><%= pet.description %></td>
+            <td>
+              <img src="/uploads/<%= pet.image %>" alt="<%= pet.name %>" />
+            </td>
+            <td>
+              <button class="edit-btn" onclick="editPet('<%= pet.id %>')">
+                ✏️ Edit
+              </button>
+               <button class="delete-btn" onclick="deletePet('<%= pet.id %>')">
+                🗑️ Delete
+              </button>
+            </td>
+          </tr>
+          <% }); %> <% } else { %>
+          <tr>
+            <td colspan="7">No pets found.</td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+
+      <!-- Add Pet Button -->
+      <button class="add-pet-btn" id="addPetBtn">➕ Add a Pet</button>
+
+      <!-- Pet Form -->
+      <!-- Pet Form -->
+      <div id="petFormContainer" class="pet-form-container">
+        <h3>Add a Pet</h3>
+        <form
+          action="/admin/add-pet"
+          method="POST"
+          id="petForm"
+          enctype="multipart/form-data"
+        >
+          <label>Pet Name:</label>
+          <input type="text" name="petName" id="petName" required />
+
+          <label>Category:</label>
+          <select name="petCategory" id="petCategory">
+            <option value="Dog">Dog</option>
+            <option value="Cat">Cat</option>
+            <option value="Bird">Bird</option>
+            <option value="Rabbit">Rabbit</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <label>Breed:</label>
+          <input type="text" name="petBreed" id="petBreed" required />
+
+          <label>Age:</label>
+          <input type="number" name="petAge" id="petAge" min="0" required />
+
+          <label>Description:</label>
+          <textarea
+            name="petDescription"
+            id="petDescription"
+            required
+          ></textarea>
+
+          <label>Upload Image:</label>
+          <input type="file" name="petImage" id="petImage" accept="image/*" />
+
+          <button type="submit" class="submit-btn" id="submitPetBtn">
+            Add Pet
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById('addPetBtn')
+        .addEventListener('click', function () {
+          let formContainer = document.getElementById('petFormContainer');
+          formContainer.style.display =
+            formContainer.style.display === 'none' ? 'block' : 'none';
+        });
+
+      document
+        .getElementById('searchBar')
+        .addEventListener('input', function () {
+          let filter = this.value.toLowerCase();
+          let rows = document.querySelectorAll('#petTableBody tr');
+
+          rows.forEach((row) => {
+            let text = row.textContent.toLowerCase();
+            row.style.display = text.includes(filter) ? '' : 'none';
+          });
+        });
+    </script>
+
+    <script>
+      function editPet(petId) {
+        let row = document.querySelector(`tr[data-id="${petId}"]`);
+        let name = row.querySelector('.pet-name');
+        let category = row.querySelector('.pet-category');
+        let breed = row.querySelector('.pet-breed');
+        let age = row.querySelector('.pet-age');
+        let description = row.querySelector('.pet-description');
+
+        if (row.getAttribute('data-editing') === 'true') {
+          // Save changes
+          row.setAttribute('data-editing', 'false');
+          name.innerHTML = name.querySelector('input').value;
+          category.innerHTML = category.querySelector('input').value;
+          breed.innerHTML = breed.querySelector('input').value;
+          age.innerHTML = age.querySelector('input').value + ' years';
+          description.innerHTML = description.querySelector('textarea').value;
+        } else {
+          // Edit Mode
+          row.setAttribute('data-editing', 'true');
+          name.innerHTML = `<input type="text" value="${name.innerText}">`;
+          category.innerHTML = `<input type="text" value="${category.innerText}">`;
+          breed.innerHTML = `<input type="text" value="${breed.innerText}">`;
+          age.innerHTML = `<input type="number" value="${age.innerText.replace(
+            ' years',
+            ''
+          )}">`;
+          description.innerHTML = `<textarea>${description.innerText}</textarea>`;
+        }
+      }
+
+    function deletePet(petId) {
+    // Confirm deletion from the user
+    const confirmation = confirm("Are you sure you want to delete this pet?");
+    if (!confirmation) return; // Exit if user cancels
+
+    // Send DELETE request to server
+    fetch(`/admin/delete-pet/${petId}`, {
+        method: "DELETE",
+    })
+    .then(response => {
+        if (response.ok) {
+            // Remove the pet row from the table
+            const row = document.querySelector(`tr[data-id="${petId}"]`);
+            if (row) {
+                row.remove();
+            }
+            alert("Pet deleted successfully");
+        } else {
+            alert("Error deleting pet");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("An error occurred while deleting the pet.");
+    });
+}
+
+
+      document
+        .getElementById('searchBar')
+        .addEventListener('input', function () {
+          let filter = this.value.toLowerCase();
+          let rows = document.querySelectorAll('#petTableBody tr');
+
+          rows.forEach((row) => {
+            let text = row.textContent.toLowerCase();
+            row.style.display = text.includes(filter) ? '' : 'none';
+          });
+        });
+    </script>
+  </body>
+</html>

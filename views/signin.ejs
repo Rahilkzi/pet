@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Adoption Login & Signup</title>
+    <link rel="stylesheet" href="css/signin.css">
+    <script>
+        function showSignup() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'block';
+        }
+
+        function showLogin() {
+            document.getElementById('signup-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+        }
+
+        function showTerms() {
+            const terms = document.getElementById('terms');
+            if (terms.style.display === 'none' || terms.style.display === '') {
+                terms.style.display = 'block';
+                terms.classList.add('fadeIn'); // Add animation class for fade-in effect
+            } else {
+                terms.style.display = 'none'; // Hide terms if already visible
+            }
+        }
+
+        function validateLogin() {
+            const username = document.querySelector('#login-form input[name="username"]').value;
+            const password = document.querySelector('#login-form input[name="password"]').value;
+
+            if (!username || !password) {
+                alert('Please enter your username and password.');
+                return false;
+            }
+
+            // Simulating successful login
+            alert('Login successful!');
+            
+            // Redirect to the home page
+            window.location.href = "home"; // Replace '/home.html' with your actual home page URL
+            return false; // Prevent form submission for demo purposes
+        }
+
+        function validateSignupForm() {
+            const termsCheckbox = document.getElementById('termsCheckbox');
+            if (!termsCheckbox.checked) {
+                alert('You must agree to the terms and conditions before signing up.');
+                return false;
+            }
+
+            // Success message
+            alert('You signed up successfully!');
+            
+            // Redirect back to login form
+            showLogin();
+
+            return false; // Prevent actual form submission for this demo
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Form -->
+        <div id="login-form">
+            <h1>Login to Adopt a Pet</h1>
+            <form action="/login" method="POST" onsubmit="return validateLogin()">
+                <input type="text" name="username" placeholder="Enter Username" required>
+                <input type="password" name="password" placeholder="Enter Password" required>
+                <button type="submit">Login</button>
+                <div class="spacer"></div>
+            </form>
+            <div class="link">
+                <p>Don't have an account? <a href="#" onclick="showSignup()">Sign up here</a></p>
+            </div>
+        </div>
+
+        <!-- Signup Form -->
+        <div id="signup-form" style="display:none;">
+            <h1>Sign Up to Adopt a Pet</h1>
+            <form id="signupForm" action="/signup" method="POST" onsubmit="return validateSignupForm()">
+                <input type="text" id="username" name="username" placeholder="Enter Username" required>
+                <input type="email" id="email" name="email" placeholder="Enter Email" required>
+                <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+                <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
+                <div id="terms" class="terms" style="display:none;">
+                    <h3>Terms and Conditions</h3>
+                    <p><strong>1. Eligibility:</strong> You must be of legal age to adopt a pet and agree to provide proper care for the animal.</p>
+                    <p><strong>2. Adoption Process:</strong> The organization reserves the right to review and approve adoption applications based on specific criteria.</p>
+                    <p><strong>3. Pet Care Commitment:</strong> By adopting a pet, you agree to provide proper care, shelter, food, and medical attention for the adopted animal.</p>
+                </div>
+                <label>
+                    <input type="checkbox" id="termsCheckbox" required> 
+                    I agree to the <a href="#" onclick="showTerms(); return false;">Terms and Conditions</a>
+                </label>
+                <button type="submit">Sign Up</button>
+            </form>
+            <div class="link">
+                <p>Already have an account? <a href="#" onclick="showLogin()">Login here</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

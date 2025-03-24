@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fur Ever Friend Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="js/dashboard.js" defer></script>
+</head>
+<body>
+    <div class="dashboard-container">
+         <!-- Sidebar -->
+         <div class="sidebar">
+            <h2>🐾 Fur Ever Friend</h2>
+            <ul>
+                <li onclick="showSection('dashboard')">🏠 Dashboard</li>
+                <li onclick="showSection('pet-listings')">🐶 Pet Listings</li>
+                <li onclick="showSection('adoption-requests')">📋 Adoption Requests</li>
+                <li onclick="showSection('donations')">💰 Donations</li>
+                <li onclick="showSection('analytics')">📊 Analytics</li>
+                <li onclick="showSection('messaging')">✉️ Messaging</li>
+                <li onclick="showSection('get-involved')">🤝 Get Involved</li>
+                <li onclick="showSection('setting')">🤝 Setting</li>
+                <li onclick="showSection('user-management')">👤 User Management</li> <!-- New Section -->
+
+
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="section">
+                <h1>🐾 Dashboard Overview</h1>
+                <div class="cards">
+                    <div class="card" onclick="showSection('pet-listings')" style="cursor: pointer;">🐶 Available Pets: <strong>24</strong></div>
+                    <div class="card" onclick="showSection('adoption-requests')" style="cursor: pointer;">✅ Approved Adoptions: <strong>120</strong></div>
+                    <div class="card" onclick="showSection('adoption-requests')" style="cursor: pointer;">⏳ Pending Requests: <strong>15</strong></div>
+                    <div class="card" onclick="showSection('donations')" style="cursor: pointer;">💲 Donations: <strong>$5,000</strong></div>
+
+                </div>
+            </div>
+
+           <!-- Pet Listings Section -->
+<div id="pet-listings" class="section" style="display: none;">
+    <h1>🐶 Pet Listings</h1>
+    <div class="pet-listings-content">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Breed</th>
+                    <th>Age</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% pets.forEach(pet => { %>
+                    <tr>
+                        <td><%= pet.name %></td>
+                        <td><%= pet.category %></td>
+                        <td><%= pet.breed %></td>
+                        <td><%= pet.age %></td>
+                        <td><%= pet.description %></td>
+                        <td><img src="<%= pet.image %>" alt="Pet Image" style="width: 50px; height: 50px;"></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <!-- Add Pet Button -->
+        <button class="add-pet-btn" id="addPetBtn">➕ Add a Pet</button>
+
+        <!-- Pet Form Container (Initially Hidden) -->
+        <div id="petFormContainer" class="pet-form-container" style="display: none;">
+            <h3>Add a Pet</h3>
+            <form action="pets" id="petForm">
+                <label>Pet Name:</label>
+                <input type="text" id="petName" required>
+                
+                <label>Category:</label>
+                <select id="petCategory">
+                    <option value="Dog">Dog</option>
+                    <option value="Cat">Cat</option>
+                    <option value="Bird">Bird</option>
+                    <option value="Rabbit">Rabbit</option>
+                    <option value="Other">Other</option>
+                </select>
+                
+                <label>Breed:</label>
+                <input type="text" id="petBreed" required>
+                
+                <label>Age:</label>
+                <input type="number" id="petAge" min="0" required>
+                
+                <label>Description:</label>
+                <textarea id="petDescription" required></textarea>
+                
+                <label>Upload Image:</label>
+                <input type="file" id="petImage" accept="image/*">
+                
+                <button type="button" class="submit-btn" value="submit" id="submitPetBtn">Add Pet</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Link JavaScript -->
+<script>
+    document.getElementById("addPetBtn").addEventListener("click", togglePetForm);
+    document.getElementById("submitPetBtn").addEventListener("click", addPet);
+
+    // Toggle pet form visibility
+    function togglePetForm() {
+        const formContainer = document.getElementById("petFormContainer");
+        const petTable = document.getElementById("petTable");
+
+        if (formContainer.style.display === "none" || formContainer.style.display === "") {
+            formContainer.style.display = "block";
+            petTable.style.display = "none"; // Hide table
+        } else {
+            formContainer.style.display = "none";
+            petTable.style.display = "table"; // Show table
+        }
+    }
+
+    // Function to add a new pet
+    function addPet() {
+        let name = document.getElementById("petName").value;
+        let category = document.getElementById("petCategory").value;
+        let breed = document.getElementById("petBreed").value;
+        let age = document.getElementById("petAge").value;
+        let description = document.getElementById("petDescription").value;
+        let imageInput = document.getElementById("petImage");
+
+        if (name === "" || category === "" || breed === "" || age === "" || description === "") {
+            alert("Please fill out all fields.");
+            return;
+        }
+
+        let table = document.getElementById("petTable").getElementsByTagName("tbody")[0];
+        let row = table.insertRow();
+        let imgCell = row.insertCell(0);
+        let nameCell = row.insertCell(1);
+        let categoryCell = row.insertCell(2);
+        let breedCell = row.insertCell(3);
+        let ageCell = row.insertCell(4);
+        let descCell = row.insertCell(5);
+        let actionCell = row.insertCell(6);
+
+        // Add image or placeholder
+        if (imageInput.files.length > 0) {
+            let img = document.createElement("img");
+            img.src = URL.createObjectURL(imageInput.files[0]);
+            img.style.width = "50px";
+            img.style.height = "50px";
+            img.style.borderRadius = "5px";
+            imgCell.appendChild(img);
+        } else {
+            imgCell.innerHTML = "No Image";
+        }
+
+        // Add pet details
+        nameCell.innerHTML = name;
+        categoryCell.innerHTML = category;
+        breedCell.innerHTML = breed;
+        ageCell.innerHTML = age + " years";
+        descCell.innerHTML = description;
+
+        // Add action buttons
+        actionCell.innerHTML = `
+            <button class="edit-btn" onclick="editPet(this)">✏️ Edit</button>
+            <button class="delete-btn" onclick="deletePet(this)">🗑️ Delete</button>
+        `;
+
+        // Reset form and hide it
+        document.getElementById("petForm").reset();
+        togglePetForm(); // Hide form and show table
+    }
+
+    // Function to delete a pet
+    function deletePet(button) {
+        let row = button.closest("tr");
+        row.remove();
+    }
+
+    // Function to edit a pet
+    function editPet(button) {
+        let row = button.closest("tr");
+        let cells = row.cells;
+
+        // Populate the form with the current pet's data
+        document.getElementById("petName").value = cells[1].innerText;
+        document.getElementById("petCategory").value = cells[2].innerText;
+        document.getElementById("petBreed").value = cells[3].innerText;
+        document.getElementById("petAge").value = parseInt(cells[4].innerText);
+        document.getElementById("petDescription").value = cells[5].innerText;
+
+        // Show the form
+        togglePetForm();
+
+        // Remove the old row after editing
+        row.remove();
+    }
+</script>
+
+
+<!-- Adoption Requests Section -->
+<div id="adoption-requests" class="section" style="display: none;">
+    <h1>📋 Adoption Requests</h1>
+    <table id="requests-table" border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Pet</th>
+                <th>Date</th>
+                <th>Meet and Greet Time</th> <!-- New Column -->
+                <th>Reference Number</th> <!-- New Column -->
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>John Doe</td>
+                <td>Bella (Dog)</td>
+                <td>2025-02-14</td>
+                <td class="meet-greet-time">-</td> <!-- Placeholder for Meet and Greet Time -->
+                <td class="reference-number">-</td> <!-- Placeholder for Reference Number -->
+                <td>
+                    <button class="accept-btn" onclick="handleAction(this, 'accepted')">✅ Accept</button>
+                    <button class="reject-btn" onclick="handleAction(this, 'rejected')">❌ Reject</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Jane Smith</td>
+                <td>Whiskers (Cat)</td>
+                <td>2025-02-12</td>
+                <td class="meet-greet-time">-</td> <!-- Placeholder for Meet and Greet Time -->
+                <td class="reference-number">-</td> <!-- Placeholder for Reference Number -->
+                <td>
+                    <button class="accept-btn" onclick="handleAction(this, 'accepted')">✅ Accept</button>
+                    <button class="reject-btn" onclick="handleAction(this, 'rejected')">❌ Reject</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function handleAction(button, status) {
+        let row = button.parentElement.parentElement;
+        let meetGreetCell = row.querySelector(".meet-greet-time");
+        let referenceNumberCell = row.querySelector(".reference-number");
+
+        if (status === "accepted") {
+            // Generate a random meet and greet time (e.g., within the next 7 days)
+            const meetGreetTime = generateMeetAndGreetTime();
+            meetGreetCell.textContent = meetGreetTime;
+
+            // Generate a random reference number
+            const referenceNumber = generateReferenceNumber();
+            referenceNumberCell.textContent = referenceNumber;
+
+            alert(`Request has been ${status}. Meet and Greet scheduled for: ${meetGreetTime}. Reference Number: ${referenceNumber}`);
+        } else if (status === "rejected") {
+            meetGreetCell.textContent = "-"; // Reset meet and greet time if rejected
+            referenceNumberCell.textContent = "-"; // Reset reference number if rejected
+            alert(`Request has been ${status}.`);
+        }
+
+        // Fade out and remove the row
+        row.style.transition = "opacity 0.5s ease-out";
+        row.style.opacity = "0";
+        setTimeout(() => row.remove(), 500);
+    }
+
+    // Function to generate a random meet and greet time
+    function generateMeetAndGreetTime() {
+        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        // Generate a random date within the next 7 days
+        const currentDate = new Date();
+        const randomDays = Math.floor(Math.random() * 7) + 1; // 1 to 7 days
+        const meetDate = new Date(currentDate.setDate(currentDate.getDate() + randomDays));
+
+        // Generate a random time between 9 AM and 5 PM
+        const randomHours = Math.floor(Math.random() * 9) + 9; // 9 AM to 5 PM
+        const randomMinutes = Math.floor(Math.random() * 60); // 0 to 59 minutes
+
+        // Format the date and time
+        const formattedDate = `${days[meetDate.getDay()]} ${months[meetDate.getMonth()]} ${meetDate.getDate()}`;
+        const formattedTime = `${randomHours % 12 || 12}:${randomMinutes.toString().padStart(2, "0")} ${randomHours >= 12 ? "PM" : "AM"}`;
+
+        return `${formattedDate} at ${formattedTime}`;
+    }
+
+    // Function to generate a random reference number
+    function generateReferenceNumber() {
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const numbers = "0123456789";
+        let referenceNumber = "";
+
+        // Add 3 random letters
+        for (let i = 0; i < 3; i++) {
+            referenceNumber += letters[Math.floor(Math.random() * letters.length)];
+        }
+
+        // Add 4 random numbers
+        for (let i = 0; i < 4; i++) {
+            referenceNumber += numbers[Math.floor(Math.random() * numbers.length)];
+        }
+
+        return referenceNumber;
+    }
+</script>
+
+
+
+            <link rel="stylesheet" href="css/dashboard.css">
+            
+            <script>
+                function handleAction(button, status) {
+                    let row = button.parentElement.parentElement;
+                    row.style.transition = "opacity 0.5s ease-out";
+                    row.style.opacity = "0";
+                    setTimeout(() => row.remove(), 500);
+                    alert(`Request has been ${status}.`);
+                }
+            </script>
+            
+
+            <!-- Donation -->
+             
+            <div id="donations" class="section" style="display: none;">
+                <h1>💰 Donations</h1>
+                <table id="donations-table" border="1">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Alice Johnson</td>
+                            <td>$1,500</td>
+                        </tr>
+                        <tr>
+                            <td>Bob Williams</td>
+                            <td>$2,000</td>
+                        </tr>
+                        <tr>
+                            <td>Charlie Brown</td>
+                            <td>$1,500</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Total Donations: <strong>$5,000</strong></p>
+            </div>
+            
+            <link rel="stylesheet" href="css/dashboard.css">
+            
+            <script>
+                function handleAction(button, status) {
+                    let row = button.parentElement.parentElement;
+                    row.style.transition = "opacity 0.5s ease-out";
+                    row.style.opacity = "0";
+                    setTimeout(() => row.remove(), 500);
+                    alert(`Request has been ${status}.`);
+                }
+            </script>
+
+            
+<!-- Analytics -->            
+<div id="analytics" class="section">
+    <h1>📊 Analytics</h1>
+    <div class="analytics-card">
+        <p>Monthly Adoptions</p>
+        <strong class="count" id="adoption-count">35</strong>
+    </div>
+</div>
+
+<script>
+    // Animation for counting up the number
+    function animateCountUp(targetId, endValue, duration) {
+        let startValue = 0;
+        let element = document.getElementById(targetId);
+        let increment = endValue / (duration / 10);
+        
+        let counter = setInterval(() => {
+            startValue += increment;
+            if (startValue >= endValue) {
+                element.textContent = endValue;
+                clearInterval(counter);
+            } else {
+                element.textContent = Math.floor(startValue);
+            }
+        }, 10);
+    }
+
+    // Run the animation on page load
+    window.onload = () => {
+        animateCountUp("adoption-count", 35, 2000);
+    };
+</script>
+
+
+
+<!-- Messing --> 
+<div id="messaging" class="section">
+    <h1>✉️ Messaging</h1>
+    <div class="message-box">
+        <div class="message received">👋 Hello! Welcome to the chat system. 🚀</div>
+        <div class="message sent">Hey there! How can I adopt a pet? 🐶</div>
+        <div class="message received">You can visit our adoption page and fill out a form! 📝</div>
+    </div>
+</div>
+
+<script>
+    // Animation for counting up the number
+    function animateCountUp(targetId, endValue, duration) {
+        let startValue = 0;
+        let element = document.getElementById(targetId);
+        let increment = endValue / (duration / 10);
+        
+        let counter = setInterval(() => {
+            startValue += increment;
+            if (startValue >= endValue) {
+                element.textContent = endValue;
+                clearInterval(counter);
+            } else {
+                element.textContent = Math.floor(startValue);
+            }
+        }, 10);
+    }
+
+    // Run the animation on page load
+    window.onload = () => {
+        animateCountUp("adoption-count", 35, 2000);
+    };
+</script>
+
+
+    <script>
+        // Function to switch between sections
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        // Toggle pet form visibility with animation
+        function togglePetForm() {
+            const formContainer = document.getElementById('petFormContainer');
+            const petTable = document.getElementById('petTable');
+
+            if (formContainer.style.display === 'none' || formContainer.style.display === '') {
+                formContainer.style.display = 'block';
+                formContainer.classList.add('slide-in'); // Add animation
+                petTable.style.display = 'none'; // Hide table
+            } else {
+                formContainer.style.display = 'none';
+                petTable.style.display = 'table'; // Show table
+            }
+        }
+
+        // Function to add a new pet
+        function addPet() {
+            let name = document.getElementById('petName').value;
+            let category = document.getElementById('petCategory').value;
+            let breed = document.getElementById('petBreed').value;
+            let age = document.getElementById('petAge').value;
+            let description = document.getElementById('petDescription').value;
+            let imageInput = document.getElementById('petImage');
+
+            if (name === "" || category === "" || breed === "" || age === "" || description === "") {
+                alert("Please fill out all fields.");
+                return;
+            }
+
+            let table = document.getElementById('petTable').getElementsByTagName('tbody')[0];
+            let row = table.insertRow();
+            let imgCell = row.insertCell(0);
+            let nameCell = row.insertCell(1);
+            let categoryCell = row.insertCell(2);
+            let breedCell = row.insertCell(3);
+            let ageCell = row.insertCell(4);
+            let descCell = row.insertCell(5);
+            let actionCell = row.insertCell(6);
+
+            // Add image or placeholder
+            if (imageInput.files.length > 0) {
+                let img = document.createElement('img');
+                img.src = URL.createObjectURL(imageInput.files[0]);
+                img.style.width = "50px";
+                img.style.height = "50px";
+                img.style.borderRadius = "5px";
+                imgCell.appendChild(img);
+            } else {
+                imgCell.innerHTML = "No Image";
+            }
+
+            // Add pet details
+            nameCell.innerHTML = name;
+            categoryCell.innerHTML = category;
+            breedCell.innerHTML = breed;
+            ageCell.innerHTML = age + " years";
+            descCell.innerHTML = description;
+
+            // Add action buttons
+            actionCell.innerHTML = `
+                <button class="edit-btn" onclick="editPet(this)">✏️ Edit</button>
+                <button class="delete-btn" onclick="deletePet(this)">🗑️ Delete</button>
+            `;
+
+            // Reset form and hide it
+            document.getElementById('petForm').reset();
+            togglePetForm(); // Hide form and show table
+        }
+
+        // Function to delete a pet
+        function deletePet(button) {
+            let row = button.closest('tr');
+            row.remove();
+        }
+
+        // Function to edit a pet
+        function editPet(button) {
+            let row = button.closest('tr');
+            let cells = row.cells;
+
+            // Populate the form with the current pet's data
+            document.getElementById('petName').value = cells[1].innerText;
+            document.getElementById('petCategory').value = cells[2].innerText;
+            document.getElementById('petBreed').value = cells[3].innerText;
+            document.getElementById('petAge').value = parseInt(cells[4].innerText);
+            document.getElementById('petDescription').value = cells[5].innerText;
+
+            // Show the form
+            togglePetForm();
+
+            // Remove the old row after editing
+            row.remove();
+        }
+
+        // Show the dashboard by default
+        window.onload = function () {
+            showSection('dashboard');
+        };
+    </script>
+
+
+<!-- Get Involved Section -->
+<div id="get-involved" class="section" style="display: none;">
+    <h1>🤝 Get Involved</h1>
+    <p>Join us in making a difference! Here are some ways you can get involved:</p>
+
+    <div class="get-involved-options">
+        <h2>Volunteer Areas</h2>
+
+        <!-- Volunteer Cards -->
+        <div class="volunteer-cards">
+            <div class="volunteer-card" onclick="showVolunteerDetails('animal-care')">
+                <div class="volunteer-icon">🐶</div>
+                <div class="volunteer-info">
+                    <h3>Animal Care</h3>
+                    <p>15 volunteers needed</p>
+                </div>
+            </div>
+
+            <div class="volunteer-card" onclick="showVolunteerDetails('foster-care')">
+                <div class="volunteer-icon">🏠</div>
+                <div class="volunteer-info">
+                    <h3>Foster Care</h3>
+                    <p>10 volunteers needed</p>
+                </div>
+            </div>
+
+            <div class="volunteer-card" onclick="showVolunteerDetails('adoption-events')">
+                <div class="volunteer-icon">🎉</div>
+                <div class="volunteer-info">
+                    <h3>Adoption Events</h3>
+                    <p>8 volunteers needed</p>
+                </div>
+            </div>
+
+            <div class="volunteer-card" onclick="showVolunteerDetails('fundraising')">
+                <div class="volunteer-icon">💰</div>
+                <div class="volunteer-info">
+                    <h3>Fundraising</h3>
+                    <p>6 volunteers needed</p>
+                </div>
+            </div>
+
+            <div class="volunteer-card" onclick="showVolunteerDetails('administrative')">
+                <div class="volunteer-icon">🗂️</div>
+                <div class="volunteer-info">
+                    <h3>Administrative</h3>
+                    <p>4 volunteers needed</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Example function for showing details of a volunteer area (you can expand this for your use case)
+    function showVolunteerDetails(area) {
+        alert(`Showing details for: ${area}`);
+    }
+</script>
+
+
+
+<!-- User Management Section -->
+<div id="user-management" class="section" style="display: none;">
+    <h1>👤 User Management</h1>
+    <div class="user-management-content">
+        <!-- Table to Display Users -->
+        <table id="userTable" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be added dynamically -->
+            </tbody>
+        </table>
+
+        <!-- Add User Button -->
+        <button class="add-user-btn" id="addUserBtn">➕ Add User</button>
+
+        <!-- User Form Container (Initially Hidden) -->
+        <div id="userFormContainer" class="user-form-container" style="display: none;">
+            <h3>Add/Edit User</h3>
+            <form id="userForm">
+                <label>Name:</label>
+                <input type="text" id="userName" required>
+                
+                <label>Email:</label>
+                <input type="email" id="userEmail" required>
+                
+                <label>Role:</label>
+                <select id="userRole">
+                    <option value="Admin">Admin</option>
+                    <option value="Volunteer">Volunteer</option>
+                    <option value="User">User</option>
+                </select>
+                
+                <button type="button" class="submit-btn" id="submitUserBtn">Save User</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    // Toggle user form visibility
+    document.getElementById("addUserBtn").addEventListener("click", toggleUserForm);
+    document.getElementById("submitUserBtn").addEventListener("click", saveUser);
+
+    // Toggle user form visibility
+    function toggleUserForm() {
+        const formContainer = document.getElementById("userFormContainer");
+        const userTable = document.getElementById("userTable");
+
+        if (formContainer.style.display === "none" || formContainer.style.display === "") {
+            formContainer.style.display = "block";
+            userTable.style.display = "none"; // Hide table
+        } else {
+            formContainer.style.display = "none";
+            userTable.style.display = "table"; // Show table
+        }
+    }
+
+    // Function to save a new user
+    function saveUser() {
+        let name = document.getElementById("userName").value;
+        let email = document.getElementById("userEmail").value;
+        let role = document.getElementById("userRole").value;
+
+        if (name === "" || email === "" || role === "") {
+            alert("Please fill out all fields.");
+            return;
+        }
+
+        let table = document.getElementById("userTable").getElementsByTagName("tbody")[0];
+        let row = table.insertRow();
+        let idCell = row.insertCell(0);
+        let nameCell = row.insertCell(1);
+        let emailCell = row.insertCell(2);
+        let roleCell = row.insertCell(3);
+        let actionCell = row.insertCell(4);
+
+        // Generate a unique ID (for demonstration purposes)
+        let userId = table.rows.length;
+
+        // Add user details
+        idCell.innerHTML = userId;
+        nameCell.innerHTML = name;
+        emailCell.innerHTML = email;
+        roleCell.innerHTML = role;
+
+        // Add action buttons
+        actionCell.innerHTML = `
+            <button class="edit-btn" onclick="editUser(this)">✏️ Edit</button>
+            <button class="delete-btn" onclick="deleteUser(this)">🗑️ Delete</button>
+        `;
+
+        // Reset form and hide it
+        document.getElementById("userForm").reset();
+        toggleUserForm(); // Hide form and show table
+    }
+
+    // Function to delete a user
+    function deleteUser(button) {
+        let row = button.closest("tr");
+        row.remove();
+    }
+
+    // Function to edit a user
+    function editUser(button) {
+        let row = button.closest("tr");
+        let cells = row.cells;
+
+        // Populate the form with the current user's data
+        document.getElementById("userName").value = cells[1].innerText;
+        document.getElementById("userEmail").value = cells[2].innerText;
+        document.getElementById("userRole").value = cells[3].innerText;
+
+        // Show the form
+        toggleUserForm();
+
+        // Remove the old row after editing
+        row.remove();
+    }
+</script>
+  
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fur Ever Friend Dashboard</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <script src="/js/dashboard.js" defer></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>🐾 Fur Ever Friend</h2>
+            <ul>
+                <li><a href="/admin/dashboard">🏠 Dashboard</a></li>
+                <li><a href="/admin/pet-listings">🐶 Pet Listings</a></li>
+                <li><a href="/admin/adoption-requests">📋 Adoption Requests</a></li>
+                <li><a href="/admin/donations">💰 Donations</a></li>
+                <li><a href="/admin/analytics">📊 Analytics</a></li>
+                <li><a href="/admin/messaging">✉️ Messaging</a></li>
+                <li><a href="/admin/get-involved">🤝 Get Involved</a></li>
+                <li><a href="/admin/settings">⚙️ Settings</a></li>
+                <li><a href="/admin/user-management">👤 User Management</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <%- include(`../admin/${component}`) %>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/css/donate.css">
+        <title>Header Example</title>
+    </head>
+
+    <body>
+
+        <!-- Include the navbar -->
+     <%- include('components/navbar') %>
+
+
+    <main class="donate-main" style="background-image: url('images/2148765183.jpg'); background-size: cover; background-position: center; padding: 20px;">
+        <section class="donate-section">
+            <h2>Donate to Fur-Ever Friend</h2>
+            <p class="cp">Your donation goes a long way in supporting our mission to find loving homes for rescue pets and provide resources for pet owners. Thank you for your generosity!</p>
+            <div class="donation-options">
+                <div class="donation-option">
+                    <h3><img src="images/paypal-logo.png" alt="PayPal"><span>fureverfriend@paypal</span></h3>
+                </div>
+                <div class="donation-option d2">
+                    <h3><img src="images/upi-logo.svg" alt="UPI Logo"><span>fureverfriend@okhdfc</span></h3>
+                </div>
+            </div>
+            <div class="net-banking-option">
+                <div class="net-banking-header">
+                    <h3><img src="images/net-banking-logo.png" alt="Net Banking Logo">Net Banking</h3>
+                </div>
+                <p class="bank-info bi">Donate using your bank's net banking service.</p>
+                <div class="bank-info-container">
+                    <p class="bank-info">Account Holder Name: Fur-Ever Friend<br>Account Number: 1234 5678 0910<br>IFSC Code: HDFC0000001</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>

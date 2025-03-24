@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Signup</title>
+    <link rel="stylesheet" type="text/css" href="/css/admin.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Signup</h1>
+        <form id="signupForm" action="/admin/signup" method="POST">
+            <input type="text" id="username" name="username" placeholder="Enter Username" required>
+            <input type="email" id="email" name="email" placeholder="Enter Email" required>
+            <input type="password" id="password" name="password" placeholder="Enter Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="/admin/login">Login here</a></p>
+    </div>
+
+    
+</body>
+</html>

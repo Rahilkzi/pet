@@ -1,0 +1,129 @@
+<div id="adoption-requests" class="section">
+    <h1>📋 Adoption Requests</h1>
+
+    <!-- Pending Adoption Requests -->
+    <h2>⏳ Pending Requests</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Pet</th>
+                <th>Date</th>
+                <th>Meet and Greet Time</th>
+                <th>Reference Number</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="pendingRequests">
+            <tr>
+                <td>John Doe</td>
+                <td>Bella (Dog)</td>
+                <td>2025-02-14</td>
+                <td class="meet-greet-time">-</td>
+                <td class="reference-number">-</td>
+                <td>
+                    <button class="accept-btn" onclick="handleAction(this, 'accepted')">✅ Accept</button>
+                    <button class="reject-btn" onclick="handleAction(this, 'rejected')">❌ Reject</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Jane Smith</td>
+                <td>Max (Cat)</td>
+                <td>2025-02-15</td>
+                <td class="meet-greet-time">-</td>
+                <td class="reference-number">-</td>
+                <td>
+                    <button class="accept-btn" onclick="handleAction(this, 'accepted')">✅ Accept</button>
+                    <button class="reject-btn" onclick="handleAction(this, 'rejected')">❌ Reject</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Michael Johnson</td>
+                <td>Luna (Rabbit)</td>
+                <td>2025-02-16</td>
+                <td class="meet-greet-time">-</td>
+                <td class="reference-number">-</td>
+                <td>
+                    <button class="accept-btn" onclick="handleAction(this, 'accepted')">✅ Accept</button>
+                    <button class="reject-btn" onclick="handleAction(this, 'rejected')">❌ Reject</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Emily White</td>
+                <td>Charlie (Dog)</td>
+                <td>2025-02-17</td>
+                <td class="meet-greet-time">-</td>
+                <td class="reference-number">-</td>
+                <td>
+                    <button class="accept-btn" onclick="handleAction(this, 'accepted')">✅ Accept</button>
+                    <button class="reject-btn" onclick="handleAction(this, 'rejected')">❌ Reject</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Daniel Brown</td>
+                <td>Rocky (Parrot)</td>
+                <td>2025-02-18</td>
+                <td class="meet-greet-time">-</td>
+                <td class="reference-number">-</td>
+                <td>
+                    <button class="accept-btn" onclick="handleAction(this, 'accepted')">✅ Accept</button>
+                    <button class="reject-btn" onclick="handleAction(this, 'rejected')">❌ Reject</button>
+                </td>
+            </tr>
+        </tbody>
+        
+    </table>
+
+    <!-- Approved Adoptions -->
+    <h2>✅ Approved Adoptions</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Pet</th>
+                <th>Adoption Date</th>
+                <th>Meet and Greet Time</th>
+                <th>Reference Number</th>
+            </tr>
+        </thead>
+        <tbody id="approvedAdoptions">
+            <!-- Approved adoptions will be added here dynamically -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function handleAction(button, action) {
+        let row = button.parentElement.parentElement;
+        let name = row.cells[0].textContent;
+        let pet = row.cells[1].textContent;
+        let date = row.cells[2].textContent;
+        let meetGreetTime = row.cells[3];
+        let referenceNumber = row.cells[4];
+
+        if (action === 'accepted') {
+            // Assign a meet and greet time
+            let currentDate = new Date();
+            let formattedDate = currentDate.toLocaleString();
+            meetGreetTime.textContent = formattedDate;
+
+            // Generate a random reference number
+            let refNum = "REF-" + Math.floor(1000 + Math.random() * 9000);
+            referenceNumber.textContent = refNum;
+
+            // Move row to approved adoptions table
+            let approvedTable = document.getElementById("approvedAdoptions");
+            let newRow = `<tr>
+                <td>${name}</td>
+                <td>${pet}</td>
+                <td>${date}</td>
+                <td>${formattedDate}</td>
+                <td>${refNum}</td>
+            </tr>`;
+            approvedTable.innerHTML += newRow;
+        }
+
+        // Remove row from pending requests
+        row.remove();
+    }
+</script>

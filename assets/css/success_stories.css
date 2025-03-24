@@ -1,0 +1,239 @@
+/* Global Styles */
+body {
+    background-color: rgb(251, 245, 235);
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* Hero Section */
+.hero-section {
+    color: #fff;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.hero-section p {
+    font-size: 1.125rem;
+    max-width: 600px;
+    margin: 0 auto 30px;
+}
+
+/* Stories Grid */
+.stories-grid {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.story-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.story-card:hover {
+    transform: translateY(-5px);
+}
+
+.story-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.story-content {
+    padding: 15px;
+}
+
+.story-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.story-content p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.story-content .btn {
+    text-decoration: none;
+    color: #fff;
+    background-color: #f76c6c;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.story-content .btn:hover {
+    background-color: #d45454;
+}
+
+/* Long Story Cards */
+.long-story-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    align-items: center;
+}
+
+.long-story-card:nth-child(even) {
+    direction: rtl;
+}
+
+.long-story-card:nth-child(even) .long-story-content {
+    direction: ltr;
+}
+
+.long-story-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.long-story-card img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.long-story-card:hover img {
+    transform: scale(1.05);
+}
+
+.long-story-content {
+    padding: 10px;
+}
+
+.long-story-content h3 {
+    font-size: 1.8rem;
+    color: #b22222;
+    margin-bottom: 15px;
+}
+
+.long-story-content p {
+    font-size: 1.1rem;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Share Story Section */
+.share-story {
+    text-align: center;
+    background-color: #ffe4b2;
+    padding: 30px 15px;
+    margin-top: 20px;
+}
+
+.share-story h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.share-story p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.share-story a {
+    color: #f76c6c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.share-story a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    .long-story-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .long-story-card img {
+        max-width: 100%;
+        margin: 0 auto 20px;
+    }
+
+    .long-story-content h3 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .stories-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-section h1 {
+        font-size: 1.75rem;
+    }
+
+    .story-content h3 {
+        font-size: 1.25rem;
+    }
+
+    .long-story-content p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .hero-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero-section p,
+    .share-story p {
+        font-size: 1rem;
+    }
+
+    .story-content .btn {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    .long-story-content h3 {
+        font-size: 1.3rem;
+    }
+
+    .long-story-content p {
+        font-size: 0.95rem;
+    }
+}

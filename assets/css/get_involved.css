@@ -1,0 +1,242 @@
+/* General Selection Styling */
+*::selection {
+    background-color: #3d3d3d;
+    color: whitesmoke;
+}
+
+/* Reset and Body Styling */
+body {
+    background-color: rgb(251, 245, 235); /* Light Beige */
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+/* Main Content Styling */
+main {
+    padding: 20px;
+}
+
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+  
+    
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+    color: #333; /* Dark Gray */
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    color: #555; /* Medium Gray */
+}
+
+/* Volunteer Section */
+.volunteer-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.volunteer-section h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.volunteer-section p {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Volunteer Form */
+#volunteer-form {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+#volunteer-form h2 {
+    font-size: 28px;
+    color: #8B0000;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.other-ways #fic {
+    height: 60px;
+}
+
+#volunteer-form form {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 16px;
+    color: #8B0000;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+#volunteer-form .btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #ff6347;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+}
+
+#volunteer-form .btn:hover {
+    background-color: #e65c3e;
+}
+
+
+/* Submit Button Styling */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    background-color: #ff7043; /* Soft Orange */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.btn:hover {
+    background-color: #ff5722; /* Darker Orange */
+    transform: translateY(-2px);
+}
+
+
+/* Button Styling */
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #f76c6c; /* Bright Red */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #d45454; /* Darker Red */
+}
+
+/* Other Ways Section */
+.other-ways {
+    max-width: 700px;
+    margin: 50px auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.other-ways h2 {
+    font-size: 28px;
+    color: #8B0000;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.other-ways p {
+    text-align: justify;
+}
+
+.option {
+    width: 30%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.option img {
+    max-width: 80px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.option h3 {
+    font-size: 20px;
+    color: #8B0000;
+    margin-bottom: 10px;
+}
+
+.option p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.option .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff6347;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.option .btn:hover {
+    background-color: #e65c3e;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .other-ways {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .option {
+        width: 80%;
+    }
+}
+
+
+

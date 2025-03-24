@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Application - Pawfect Pawtrails</title>
+    <link rel="stylesheet" type="text/css" href="/css/adopt.css">
+    <link rel="icon" type="icon/x-icon" href="resources/Pawfect Pawtrails-4.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .tracking-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #statusDisplay {
+            margin-top: 20px;
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+<body>
+    <div class="tracking-form">
+        <h2>Track Your Application</h2>
+        <form id="trackingForm">
+            <label for="referenceNumber">Reference Number:</label>
+            <input type="text" id="referenceNumber" name="referenceNumber" required>
+
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+
+            <button type="submit">Track Status</button>
+        </form>
+
+        <div id="statusDisplay">
+            <h3>Application Status</h3>
+            <p><strong>Reference Number:</strong> <span id="refNumber"></span></p>
+            <p><strong>Status:</strong> <span id="status"></span></p>
+            <p><strong>Last Updated:</strong> <span id="lastUpdated"></span></p>
+            <p><strong>Next Steps:</strong> <span id="nextSteps"></span></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('trackingForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Simulate fetching data (replace with actual backend call)
+            const refNumber = document.getElementById('referenceNumber').value;
+            const email = document.getElementById('email').value;
+
+            // Example response (replace with real data from your backend)
+            const applicationData = {
+                referenceNumber: refNumber,
+                status: "Under Review",
+                lastUpdated: "October 10, 2023",
+                nextSteps: "Please wait for further communication."
+            };
+
+            // Display the status
+            document.getElementById('refNumber').textContent = applicationData.referenceNumber;
+            document.getElementById('status').textContent = applicationData.status;
+            document.getElementById('lastUpdated').textContent = applicationData.lastUpdated;
+            document.getElementById('nextSteps').textContent = applicationData.nextSteps;
+            document.getElementById('statusDisplay').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
