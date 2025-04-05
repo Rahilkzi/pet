@@ -209,6 +209,7 @@ app.post('/admin/login', (req, res) => {
 app.use(express.static(path.join(__dirname, 'assets')));
 
 // Define a route
+app.get('/', (req, res) => res.render('home'));
 app.get('/home', (req, res) => {
     res.render('home');
 });
@@ -217,11 +218,13 @@ app.get('/adopt', (req, res) => {
     res.render('adopt');
 });
 
-
+// View Routes
 app.get('/browse_pet', (req, res) => {
-    res.render('browse_pet');
+    db.all(`SELECT * FROM pets`, [], (err, pets) => {
+        if (err) return res.status(500).send("Database error");
+        res.render('browse_pet', { pets });
+    });
 });
-
 
 app.get('/get_involved', (req, res) => {
     res.render('get_involved');

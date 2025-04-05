@@ -30,136 +30,107 @@
     
     </div>
 
-    <div class="pet-listings">
+   <div class="pet-listings">
+        <!-- Dogs Section -->
         <h2 id="dogs" style="text-align: center;">Dogs</h2>
         <div class="pet-grid">
-            <div class="pet-card">
-                <img src="images/pug-dog.png" alt="Dog 1">
-                <h3>Hulfy</h3>
-                <p>Age: 2 years</p>
-                <p>Breed: Pug</p>
-                <p>Gender: Male</p>
-                <a href="adopt" class="adopt-btn">Adopt Me</a>
-            </div>
-            <div class="pet-card">
-                <img src="images/gold-ret.jpg" alt="Dog 2">
-                <h3>Luna</h3>
-                <p>Age: 4 years</p>
-                <p>Breed: Golden Retriever</p>
-                <p>Gender: Female</p>
-                <a href="adopt" class="adopt-btn">Adopt Me</a>
-            </div>
-            <div class="pet-card">
-                <img src="images/gmnshprd.png" alt="Dog 3">
-                <h3>Max</h3>
-                <p>Age: 1 year</p>
-                <p>Breed: German Shepherd</p>
-                <p>Gender: Male</p>
-                <a href="adopt" class="adopt-btn">Adopt Me</a>
-            </div>
+            <% pets.filter(pet => pet.category.toLowerCase() === 'dog').slice(0, 3).forEach(pet => { %>
+                <div class="pet-card">
+                    <img src="<%= pet.image_url || '/images/default-dog.jpg' %>" alt="<%= pet.name %>">
+                    <h3><%= pet.name %></h3>
+                    <p>Age: <%= pet.age %> <%= pet.age === 1 ? 'year' : 'years' %></p>
+                    <p>Breed: <%= pet.breed %></p>
+                    <p>Gender: <%= pet.gender || 'Unknown' %></p>
+                    <a href="/adopt/<%= pet.id %>" class="adopt-btn">Adopt Me</a>
+                </div>
+            <% }); %>
         </div>
+        
         <div class="pet-grid">
-            <div class="pet-card">
-                <img src="images/boxer.png" alt="Dog 4">
-                <h3>Rocky</h3>
-                <p>Age: 6 years</p>
-                <p>Breed: Boxer</p>
-                <p>Gender: Male</p>
-                <a href="adopt" class="adopt-btn">Adopt Me</a>
-            </div>
-            <div class="pet-card">
-                <img src="images/australian.png" alt="Dog 5">
-                <h3>Sadie</h3>
-                <p>Age: 2 years</p>
-                <p>Breed: Australian Shepherd</p>
-                <p>Gender: Female</p>
-                <a href="adopt" class="adopt-btn">Adopt Me</a>
-            </div>
-            <div class="pet-card">
-                <img src="images/beagle.png" alt="Dog 6">
-                <h3>Daisy</h3>
-                <p>Age: 3 year</p>
-                <p>Breed: Beagle</p>
-                <p>Gender: Female</p>
-                <a href="adopt" class="adopt-btn">Adopt Me</a>
-            </div>
+            <% pets.filter(pet => pet.category.toLowerCase() === 'dog').slice(3, 6).forEach(pet => { %>
+                <div class="pet-card">
+                    <img src="<%= pet.image_url || '/images/default-dog.jpg' %>" alt="<%= pet.name %>">
+                    <h3><%= pet.name %></h3>
+                    <p>Age: <%= pet.age %> <%= pet.age === 1 ? 'year' : 'years' %></p>
+                    <p>Breed: <%= pet.breed %></p>
+                    <p>Gender: <%= pet.gender || 'Unknown' %></p>
+                    <a href="/adopt/<%= pet.id %>" class="adopt-btn">Adopt Me</a>
+                </div>
+            <% }); %>
         </div>
 
+        <!-- Cats Section -->
         <h2 id="cats" style="text-align: center;">Cats</h2>
         <div class="pet-grid">
-            <div class="pet-card">
-                <img src="images/siamese-cat.png" alt="Cat 1">
-                <h3>Loafy</h3>
-                <p>Age: 3 years</p>
-                <p>Breed: Siamese</p>
-                <p>Gender: Male</p>
-                <a href="adopt" class="adopt-btn">Adopt Me</a>
-            </div>
-            <div class="pet-card">
-                <img src="images/tabby.png" alt="Cat 2">
-                <h3>Mittens</h3>
-                <p>Age: 2 years</p>
-                <p>Breed: Tabby</p>
-                <p>Gender: Female</p>
-                <a href="adopt" class="adopt-btn">Adopt Me</a>
-            </div>
-            <div class="pet-card">
-                <img src="images/orange-cat.png" alt="Cat 3">
-                <h3>Simba</h3>
-                <p>Age: 5 years</p>
-                <p>Breed: Persian</p>
-                <p>Gender: Male</p>
-                <a href="adopt" class="adopt-btn">Adopt Me</a>
-            </div>
+            <% pets.filter(pet => pet.category.toLowerCase() === 'cat').slice(0, 3).forEach(pet => { %>
+                <div class="pet-card">
+                    <img src="<%= pet.image_url || '/images/default-cat.jpg' %>" alt="<%= pet.name %>">
+                    <h3><%= pet.name %></h3>
+                    <p>Age: <%= pet.age %> <%= pet.age === 1 ? 'year' : 'years' %></p>
+                    <p>Breed: <%= pet.breed %></p>
+                    <p>Gender: <%= pet.gender || 'Unknown' %></p>
+                    <a href="/adopt/<%= pet.id %>" class="adopt-btn">Adopt Me</a>
+                </div>
+            <% }); %>
         </div>
+        
         <div class="pet-grid">
-            <div class="pet-card">
-                <img src="images/sh.png" alt="Cat 4">
-                <h3>Oliver</h3>
-                <p>Age: 4 years</p>
-                <p>Breed: British Shorthair</p>
-                <p>Gender: Male</p>
-                <a href="adopt" class="adopt-btn">Adopt Me</a>
-            </div>
-            <div class="pet-card">
-                <img src="images/bengal.png" alt="Cat 5">
-                <h3>Milo</h3>
-                <p>Age: 1 years</p>
-                <p>Breed: Bengal</p>
-                <p>Gender: Female</p>
-                <a href="adopt" class="adopt-btn">Adopt Me</a>
-            </div>
-            <div class="pet-card">
-                <img src="images/scot.png" alt="Cat 6">
-                <h3>Gizmo</h3>
-                <p>Age: 3 years</p>
-                <p>Breed: Scottish Fold</p>
-                <p>Gender: Female</p>
-                <a href="adopt" class="adopt-btn">Adopt Me</a>
-            </div>
+            <% pets.filter(pet => pet.category.toLowerCase() === 'cat').slice(3, 6).forEach(pet => { %>
+                <div class="pet-card">
+                    <img src="<%= pet.image_url || '/images/default-cat.jpg' %>" alt="<%= pet.name %>">
+                    <h3><%= pet.name %></h3>
+                    <p>Age: <%= pet.age %> <%= pet.age === 1 ? 'year' : 'years' %></p>
+                    <p>Breed: <%= pet.breed %></p>
+                    <p>Gender: <%= pet.gender || 'Unknown' %></p>
+                    <a href="/adopt/<%= pet.id %>" class="adopt-btn">Adopt Me</a>
+                </div>
+            <% }); %>
         </div>
     </div>
-<script>fetch("/browse-pets")
-    .then(response => response.json())
-    .then(pets => {
-        let petContainer = document.getElementById("pet-list");
-        petContainer.innerHTML = "";
-
-        pets.forEach(pet => {
-            let petCard = `
-                <div class="pet-card">
-                    <img src="${pet.image || 'default.jpg'}" alt="${pet.name}">
-                    <h3>${pet.name}</h3>
-                    <p>Breed: ${pet.breed}</p>
-                    <p>Age: ${pet.age} years</p>
-                    <p>${pet.description}</p>
-                </div>
-            `;
-            petContainer.innerHTML += petCard;
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const petCards = document.querySelectorAll('.pet-card');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            
+            // Hide spinner when page loads (since we're using server-side rendering)
+            if (loadingSpinner) {
+                loadingSpinner.style.display = 'none';
+            }
+            
+            // Filter functionality
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const category = button.dataset.category;
+                    
+                    // Filter pets
+                    petCards.forEach(card => {
+                        if (category === 'all' || card.dataset.category === category) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
         });
-    })
-    .catch(error => console.error("Error loading pets:", error));
-</script>
+    </script>
+    <script>
+        // Add any client-side functionality here if needed
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Smooth scroll to section
+                const targetId = btn.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 
     <div class="adoption-info">
         <h2>Adoption Information</h2>
