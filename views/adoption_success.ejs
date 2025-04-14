@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Adoption Submitted</title>
+    <%- include('components/navbar') %>
+</head>
+<body>
+    <div class="success-container">
+        <h1>🐾 Adoption Request Received! 🐾</h1>
+        <p>We've received your request to adopt <%= pet.pet_name %>.</p>
+        <p class="ref-number">Reference #: <strong><%= refNumber %></strong></p>
+        <p>We'll contact you at <strong><%= adopterEmail %></strong> within 48 hours.</p>
+        <a href="/" class="home-btn">Back to Home</a>
+    </div>
+</body>
+</html>

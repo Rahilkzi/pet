@@ -27,11 +27,11 @@
         }
 
         function validateLogin() {
-            const username = document.querySelector('#login-form input[name="username"]').value;
+            const email = document.querySelector('#login-form input[name="email"]').value;
             const password = document.querySelector('#login-form input[name="password"]').value;
 
-            if (!username || !password) {
-                alert('Please enter your username and password.');
+            if (!email || !password) {
+                alert('Please enter your email and password.');
                 return false;
             }
 
@@ -65,8 +65,8 @@
         <!-- Login Form -->
         <div id="login-form">
             <h1>Login to Adopt a Pet</h1>
-            <form action="/login" method="POST" onsubmit="return validateLogin()">
-                <input type="text" name="username" placeholder="Enter Username" required>
+            <form action="/login" method="POST">
+                <input type="text" name="email" placeholder="Enter email" required>
                 <input type="password" name="password" placeholder="Enter Password" required>
                 <button type="submit">Login</button>
                 <div class="spacer"></div>
@@ -79,7 +79,7 @@
         <!-- Signup Form -->
         <div id="signup-form" style="display:none;">
             <h1>Sign Up to Adopt a Pet</h1>
-            <form id="signupForm" action="/signup" method="POST" onsubmit="return validateSignupForm()">
+            <form id="signupForm" action="/signup" method="POST">
                 <input type="text" id="username" name="username" placeholder="Enter Username" required>
                 <input type="email" id="email" name="email" placeholder="Enter Email" required>
                 <input type="password" id="password" name="password" placeholder="Enter Password" required>

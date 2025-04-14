@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Adopt <%= pet.pet_name %></title>
+    <%- include('components/navbar') %>
+</head>
+<body>
+    <div class="pet-container">
+        <img src="<%= pet.image || '/images/default-pet.jpg' %>" alt="<%= pet.pet_name %>">
+        <h1>Adopt <%= pet.pet_name %></h1>
+        <p>Breed: <%= pet.breed %></p>
+        <p>Age: <%= pet.age %> years</p>
+        
+        <form action="/adopt/<%= pet.id %>" method="POST">
+            <h2>Your Information</h2>
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="tel" name="phone" placeholder="Phone Number" required>
+            <textarea name="address" placeholder="Your Address"></textarea>
+            
+            <button type="submit">Submit Adoption Request</button>
+        </form>
+    </div>
+</body>
+</html>

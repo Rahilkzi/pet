@@ -1,206 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adopt - Pawfect Pawtrails</title>
-    <link rel="stylesheet" type="text/css" href="/css/adopt.css">
-    <link rel="icon" type="icon/x-icon" href="resources/Pawfect Pawtrails-4.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <title>Adopt - Pawfect Pawtrails</title> -->
+    <title>Adopt <%= pet.pet_name %></title>
+    <link rel="stylesheet" type="text/css" href="/css/adopt.css" />
+    <link
+      rel="icon"
+      type="icon/x-icon"
+      href="resources/Pawfect Pawtrails-4.png"
+    />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <%- include('components/navbar') %>
-
     <main>
-        <section class="adopt-section">
-            <h1>Adopt a Pet</h1>
-            <p>Give a loving home to a furry companion and change a life forever.</p>
+      <section class="adopt-section">
+        <p>
+          Give a loving home to a furry companion and change a life forever.
+        </p>
 
-            <div class="adopt-steps">
-                <div class="step">
-                    <img src="images/browse.png" alt="Browse Icon">
-                    <h3>Browse Pets</h3>
-                    <p>Search for your perfect match by browsing our available pets.</p>
-                    <a href="browse_pet" class="btn">Browse Pets</a>
-                </div>
-                <div class="step">
-                    <img src="images/apply.png" alt="Apply Icon">
-                    <h3>Apply to Adopt</h3>
-                    <p>Complete our online application form to begin the adoption process.</p>
-                    <a href="#applyy" class="btn btn-apply">Apply Now</a>
-                </div>
-                <div class="step">
-                    <h3>Meet and Greet</h3>
-                    <p>Schedule a meet-and-greet to ensure a perfect match with your new furry friend.</p>
-                    <a href="meet" class="btn">Learn More</a>
-                </div>
+        <div class="form-container">
+          <h1>Pet Adoption Application</h1>
+
+          <!-- Pet Profile Section -->
+          <section class="pet-profile">
+            <img
+              src="<%= pet.image_url || '/images/default-pet.jpg' %>"
+              alt="<%= pet.name %>"
+              class="pet-image"
+            />
+            <div class="pet-info">
+              <h1><%= pet.name %></h1>
+              <p>
+                <strong>Breed:</strong>
+                <%= pet.breed %>
+              </p>
+              <p>
+                <strong>Age:</strong>
+                <%= pet.age %> <%= pet.age === 1 ? 'year' : 'years' %>
+              </p>
+              <p>
+                <strong>Gender:</strong>
+                <%= pet.gender || 'Unknown' %>
+              </p>
+              <p>
+                <strong>Category:</strong>
+                <%= pet.category %>
+              </p>
             </div>
+          </section>
+          <form id="adoptionForm" action="/adopt/<%= pet.id %>" method="POST">
+            <!-- Personal Information -->
+            <section id="applyy">
+              <h3>Personal Information</h3>
+              <p class="info-text">
+                Please provide your contact details for communication during the
+                adoption process.
+              </p>
+              <input type="text" name="pet_id" value="<%= pet.id %>" />
+              <label for="name">Full Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your full name"
+                required
+              />
 
-            <div class="form-container">
-                <h1>Pet Adoption Application</h1>
-                <form id="adoptionForm" action="/adopt" method="POST">
-                    <!-- Personal Information -->
-                    <section id="applyy">
-                        <h3>Personal Information</h3>
-                        <p class="info-text">Please provide your contact details for communication during the adoption process.</p>
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
-                
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
-                
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
-                    </section>
-                
-                    <!-- Pet Preferences -->
-                    <section>
-                        <h3>Pet Preferences</h3>
-                        <p class="info-text">Let us know the type of pet you're interested in and tell us a bit about why you want to adopt.</p>
-                        <label for="pet_type">Preferred Pet Type</label>
-                        <select name="pet_type" id="pet_type" required>
-                            <option value="">Select Pet Type</option>
-                            <option value="dog">Dog</option>
-                            <option value="cat">Cat</option>
-                            <option value="other">Other</option>
-                        </select>
-                
-                        <label for="why_pet">Why do you want to adopt a pet?</label>
-                        <textarea name="why_pet" id="why_pet" placeholder="Tell us why you're interested in adopting a pet" rows="4" required></textarea>
-                    </section>
-                
-                    <!-- Home Environment -->
-                    <section>
-                        <h3>Home Environment</h3>
-                        <p class="info-text">Please describe your living situation to ensure a good fit for the pet.</p>
-                        <label for="housing">Do you own or rent your home?</label>
-                        <select name="housing" id="housing" required>
-                            <option value="">Select</option>
-                            <option value="own">Own</option>
-                            <option value="rent">Rent</option>
-                        </select>
-                
-                        <label for="yard">Do you have a yard or outdoor space?</label>
-                        <select name="yard" id="yard" required>
-                            <option value="">Select</option>
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                        </select>
-                    </section>
-                
-                    <!-- Adoption Terms Agreement -->
-                    <section class="requirements" style="text-align: center;">
-                        <h3>Adoption Terms</h3>
-                        <p class="info-text">Please review the adoption terms and agree before submitting your application.</p>
-                        <ul style="display: inline-block; text-align: left;">
-                            <li>You must be at least 18 years old to adopt a pet.</li>
-                            <li>You must provide proper care, shelter, and medical attention for the adopted pet.</li>
-                            <li>You agree to keep the pet's vaccinations and health checks up to date.</li>
-                        </ul>
-                        <div class="terms" style="display: inline-block; text-align: left;">
-                            <input type="checkbox" name="terms" required>
-                            <label for="terms">I agree to the adoption terms</label>
-                        </div>
-                    </section>
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email address"
+                required
+              />
 
-                    <button type="submit">Submit Application</button>
-                </form>
-                
-                <div class="link">
-                    <p>Already submitted an application? <a href="/track_application" class="track-button">
-                        <i class="fas fa-search"></i> Track your application
-                    </a></p>
-                </div>
-            </div>
-            
-        </section>
+              <label for="phone">Phone Number</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="Enter your phone number"
+                required
+              />
+            </section>
+            <section>
+              <label for="why_pet">Why do you want to adopt a pet?</label>
+              <textarea
+                name="why_pet"
+                id="why_pet"
+                placeholder="Tell us why you're interested in adopting a pet"
+                rows="4"
+                required
+              ></textarea>
+            </section>
+
+            <!-- Home Environment -->
+            <section>
+              <h3>Home Environment</h3>
+              <p class="info-text">
+                Please describe your living situation to ensure a good fit for
+                the pet.
+              </p>
+              <label for="housing">Do you own or rent your home?</label>
+              <select name="housing" id="housing" required>
+                <option value="">Select</option>
+                <option value="own">Own</option>
+                <option value="rent">Rent</option>
+              </select>
+
+              <label for="yard">Do you have a yard or outdoor space?</label>
+              <select name="yard" id="yard" required>
+                <option value="">Select</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </section>
+
+            <!-- Adoption Terms Agreement -->
+            <section class="requirements" style="text-align: center">
+              <h3>Adoption Terms</h3>
+              <p class="info-text">
+                Please review the adoption terms and agree before submitting
+                your application.
+              </p>
+              <ul style="display: inline-block; text-align: left">
+                <li>You must be at least 18 years old to adopt a pet.</li>
+                <li>
+                  You must provide proper care, shelter, and medical attention
+                  for the adopted pet.
+                </li>
+                <li>
+                  You agree to keep the pet's vaccinations and health checks up
+                  to date.
+                </li>
+              </ul>
+              <div
+                class="terms"
+                style="display: inline-block; text-align: left"
+              >
+                <input type="checkbox" name="terms" />
+                <label for="terms">I agree to the adoption terms</label>
+              </div>
+            </section>
+
+            <button type="submit">Submit Application</button>
+          </form>
+
+          <div class="link">
+            <p>
+              Already submitted an application?
+              <a href="/track_application" class="track-button">
+                <i class="fas fa-search"></i>
+                Track your application
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Popup Modal -->
     <!-- Popup Modal -->
-<div id="successPopup" class="popup">
-    <div class="popup-content">
+    <div id="successPopup" class="popup">
+      <div class="popup-content">
         <h2>Application Submitted Successfully!</h2>
-        <p>Your adoption application has been received. We will contact you shortly.</p>
-        <p><strong>Reference Number:</strong> <span id="referenceNumberDisplay"></span></p>
+        <p>Your application to adopt <%= pet.pet_name %> has been received.</p>
+        <p>
+          <strong>Reference Number:</strong>
+          <span id="referenceNumberDisplay"></span>
+        </p>
         <button id="closePopup">Close</button>
+        <a href="/browse_pet" class="btn">Browse More Pets</a>
+      </div>
     </div>
-</div>
+
+    // Remove the duplicate DOMContentLoaded listener // Keep only one script
+    section:
 
     <script>
-        // Handle form submission
-        document.getElementById("adoptionForm").addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent actual form submission
-            const formData = new FormData(event.target);
+      document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('adoptionForm');
+        const successPopup = document.getElementById('successPopup');
+        const closePopup = document.getElementById('closePopup');
 
-            // Log the form data for demonstration
-            console.log("Form Data Submitted:");
-            for (let [key, value] of formData.entries()) {
-                console.log(`${key}: ${value}`);
-            }
+        if (!form || !successPopup || !closePopup) {
+          console.error('Missing required elements');
+          return;
+        }
 
-            // Show the success popup
-            document.getElementById("successPopup").style.display = "block";
-        });
+        form.addEventListener('submit', async function (event) {
+          event.preventDefault();
+          const submitBtn = form.querySelector('button[type="submit"]');
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Submitting...';
 
-        // Close the popup when the close button is clicked
-        document.getElementById("closePopup").addEventListener("click", function () {
-            document.getElementById("successPopup").style.display = "none";
-        });
-
-        $(document).ready(function () {
-            $(".btn-apply").on("click", function (event) {
-                event.preventDefault();
-                $("html, body").animate(
-                    {
-                        scrollTop: $("#applyy").offset().top,
-                    },
-                    800 // Duration in milliseconds
-                );
+          try {
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+              method: 'POST',
+              body: formData,
             });
+
+            if (!response.ok) throw new Error(await response.text());
+
+            const result = await response.json();
+            document.getElementById('referenceNumberDisplay').textContent =
+              result.refNumber;
+            successPopup.style.display = 'block';
+          } catch (error) {
+            console.error('Error:', error);
+            alert('Submission failed: ' + error.message);
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Application';
+          }
         });
+
+        closePopup.addEventListener('click', function () {
+          successPopup.style.display = 'none';
+        });
+      });
     </script>
-
     <style>
-        /* Popup Modal Styles */
-        .popup {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
+      /* Popup Modal Styles */
+      .popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+      }
 
-        .popup-content {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            text-align: center;
-            max-width: 500px;
-            margin: 0 auto;
-        }
+      .popup-content {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        text-align: center;
+        max-width: 500px;
+        margin: 0 auto;
+      }
 
-        .popup h2 {
-            margin-bottom: 20px;
-        }
+      .popup h2 {
+        margin-bottom: 20px;
+      }
 
-        .popup button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+      .popup button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
 
-        .popup button:hover {
-            background-color: #45a049;
-        }
+      .popup button:hover {
+        background-color: #45a049;
+      }
     </style>
-
-</body>
+  </body>
 </html>

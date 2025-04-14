@@ -14,7 +14,7 @@ const db = new sqlite3.Database("database.db", (err) => {
 function createTables() {
     db.run(`CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
+        username TEXT NOT NULL,
         email TEXT UNIQUE NOT NULL,
         password TEXT NOT NULL
     )`, (err) => {
@@ -25,22 +25,84 @@ function createTables() {
         }
     });
 
-    // Create pets table
-    db.run(`CREATE TABLE IF NOT EXISTS pets (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        pet_name TEXT NOT NULL,
-        category TEXT NOT NULL,
-        breed TEXT NOT NULL,
-        age INTEGER NOT NULL,
-        description TEXT NOT NULL,
-        image TEXT
-    )`, (err) => {
+
+    db.run(`CREATE TABLE IF NOT EXISTS adoptions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    pet_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    application_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected', 'completed')),
+    adopter_name TEXT NOT NULL,
+    adopter_email TEXT NOT NULL,
+    adopter_phone INTEGER NOT NULL,
+    housing_type TEXT NOT NULL CHECK (housing_type IN ('own', 'rent')),
+    has_yard TEXT NOT NULL CHECK (has_yard IN ('yes', 'no')),
+    adoption_reason TEXT NOT NULL,
+    notes TEXT,
+    reference_number TEXT UNIQUE,
+    FOREIGN KEY (pet_id) REFERENCES pets(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+)`, (err) => {
         if (err) {
-            console.error("Error creating pets table:", err.message);
+            console.error("Error creating table:", err.message);
         } else {
-            console.log("Pets table created successfully.");
+            console.log("adoptions table created successfully.");
         }
     });
+
+   // Create pets table
+db.run(`CREATE TABLE IF NOT EXISTS pets (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    pet_name TEXT NOT NULL,
+    category TEXT NOT NULL,
+    breed TEXT NOT NULL,
+    age INTEGER NOT NULL,
+    description TEXT NOT NULL,
+    image TEXT,
+    status TEXT DEFAULT 'available' CHECK (status IN ('available', 'pending', 'adopted'))
+)`, (err) => {
+    if (err) {
+        console.error("Error creating pets table:", err.message);
+    } else {
+        console.log("Pets table created successfully.");
+    }
+});
+
+
+<!-- -- Admin table -->
+db.run(`CREATE TABLE IF NOT EXISTS admins (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE,
+    email TEXT NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL,
+    role TEXT DEFAULT 'staff' CHECK (role IN ('admin', 'staff')),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)`, (err) => {
+    if (err) {
+        console.error("Error creating admins table:", err.message);
+    } else {
+        console.log("admins table created successfully.");
+    }
+});
+
+
+<!-- -- Application tracking table -->
+db.run(`CREATE TABLE IF NOT EXISTS application_history (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    adoption_id INTEGER NOT NULL,
+    status TEXT NOT NULL,
+    changed_by INTEGER NOT NULL,
+    notes TEXT,
+    changed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (adoption_id) REFERENCES adoptions(id) ON DELETE CASCADE,
+    FOREIGN KEY (changed_by) REFERENCES admins(id)
+)`, (err) => {
+    if (err) {
+        console.error("Error creating application_history table:", err.message);
+    } else {
+        console.log("application_history table created successfully.");
+    }
+});
 }
 
 

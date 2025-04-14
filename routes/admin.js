@@ -27,7 +27,8 @@ router.get("/dashboard", (req, res) => {
 
 // Route for pet listings
 router.get("/pet-listings", (req, res) => {
-    const sql = "SELECT id, name, category, breed, age, description, image_url FROM pets"; // Modify according to your DB schema
+    const sql =
+      'SELECT id, pet_name, category, breed, age, description, image FROM pets'; // Modify according to your DB schema
     
     db.all(sql, [], (err, pets) => {
         console.log(pets)
@@ -49,7 +50,7 @@ router.post("/add-pet", upload.single("petImage"), (req, res) => {
     }
 
     // SQL query to insert the new pet into the database
-    const sql = `INSERT INTO pets (name, category, breed, age, description, image_url) 
+    const sql = `INSERT INTO pets (pet_name, category, breed, age, description, image) 
                  VALUES (?, ?, ?, ?, ?, ?)`;
     const params = [petName, petCategory, petBreed, petAge, petDescription, petImage];
 
